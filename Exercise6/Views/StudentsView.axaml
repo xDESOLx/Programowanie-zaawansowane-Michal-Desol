@@ -1,0 +1,55 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+             xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="clr-namespace:Exercise6.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Exercise6.Views.StudentsView"
+			 x:DataType="vm:StudentsViewModel">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<StackPanel Spacing="20" Margin="10" Orientation="Horizontal">
+			<StackPanel Spacing="5" Width="200">
+				<TextBlock  Text="Imię:" />
+				<TextBox Text="{Binding NewStudent.FirstName}" />
+			</StackPanel>
+			<StackPanel Spacing="5" Width="200">
+				<TextBlock Text="Nazwisko:" />
+				<TextBox Text="{Binding NewStudent.LastName}" />
+			</StackPanel>
+			<StackPanel Spacing="5" Width="200">
+				<TextBlock Text="Numer albumu:" />
+				<TextBox Text="{Binding NewStudent.IndexNo}" />
+			</StackPanel>
+			<Button Content="Dodaj studenta" Command="{Binding AddStudentCommand}" />
+		</StackPanel>
+		<DataGrid Grid.Row="1" ItemsSource="{Binding Students^}">
+			<i:Interaction.Behaviors>
+				<ia:EventTriggerBehavior EventName="RowEditEnded">
+					<ia:InvokeCommandAction Command="{Binding UpdateStudentCommand}" />
+				</ia:EventTriggerBehavior>
+			</i:Interaction.Behaviors>
+			<DataGrid.Columns>
+				<DataGridTextColumn IsReadOnly="True" Header="ID" Binding="{Binding Id}"/>
+				<DataGridTextColumn Header="Imię" Binding="{Binding FirstName}"/>
+				<DataGridTextColumn Header="Nazwisko" Binding="{Binding LastName}" />
+				<DataGridTextColumn Header="Numer albumu" Binding="{Binding IndexNo}" />
+				<DataGridTemplateColumn Width="*">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<Button Content="Usuń"
+									Margin="5"
+									Command="{Binding Path=DataContext.DeleteStudentCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+									CommandParameter="{Binding}" />
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+			</DataGrid.Columns>
+		</DataGrid>
+	</Grid>
+</UserControl>

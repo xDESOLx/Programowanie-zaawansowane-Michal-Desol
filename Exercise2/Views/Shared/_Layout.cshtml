@@ -1,0 +1,110 @@
+﻿@using Microsoft.AspNetCore.Localization;
+@using Microsoft.AspNetCore.Mvc.Localization;
+@inject IViewLocalizer Localizer
+
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var theme = Context.Request.Cookies["theme"] ?? "light";
+}
+
+<!DOCTYPE html>
+<html lang="@requestCulture.RequestCulture.UICulture.Name" data-bs-theme="@theme">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Exercise2</title>
+    <link rel="preconnect" href="https://rsms.me/ /">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Exercise2.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Exercise2</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">@Localizer["Strona główna"]</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">@Localizer["O mnie"]</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">@Localizer["Polityka prywatności"]</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="gardenDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                @Localizer["Ogród"]
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="gardenDropdown">
+                                <li><a class="dropdown-item" asp-controller="Trees" asp-action="Index">@Localizer["Drzewa"]</a></li>
+                                <li><a class="dropdown-item" asp-controller="GardenFurnitures" asp-action="Index">@Localizer["Meble ogrodowe"]</a></li>
+                                <li><a class="dropdown-item" asp-controller="Tools" asp-action="Index">@Localizer["Narzędzia"]</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="kitchenDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                @Localizer["Kuchnia"]
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="kitchenDropdown">
+                                <li><a class="dropdown-item" asp-controller="Glasses" asp-action="Index">@Localizer["Szklanki"]</a></li>
+                                <li><a class="dropdown-item" asp-controller="Plates" asp-action="Index">@Localizer["Talerze"]</a></li>
+                                <li><a class="dropdown-item" asp-controller="Knives" asp-action="Index">@Localizer["Noże"]</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="refrigeratorDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                @Localizer["Lodówka"]
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="refrigeratorDropdown">
+                                <li><a class="dropdown-item" asp-controller="Meats" asp-action="Index">@Localizer["Mięso"]</a></li>
+                                <li><a class="dropdown-item" asp-controller="Fruits" asp-action="Index">@Localizer["Owoce"]</a></li>
+                                <li><a class="dropdown-item" asp-controller="Vegetables" asp-action="Index">@Localizer["Warzywa"]</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="libraryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                @Localizer["Biblioteka"]
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="libraryDropdown">
+                                <li><a class="dropdown-item" asp-controller="Books" asp-action="Index">@Localizer["Książki"]</a></li>
+                                <li><a class="dropdown-item" asp-controller="Authors" asp-action="Index">@Localizer["Autorzy"]</a></li>
+                                <li><a class="dropdown-item" asp-controller="Genres" asp-action="Index">@Localizer["Gatunki"]</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    @await Html.PartialAsync("_SwitchThemePartial")
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    &copy; 2023 - Exercise2 - <a asp-area="" asp-controller="Home" asp-action="Privacy">@Localizer["Polityka prywatności"]</a>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    @await Html.PartialAsync("_SelectLanguagePartial")
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.min.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,15 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    var requestTheme = Context.Request.Cookies["theme"] ?? "light";
+    var returnUrl = string.IsNullOrEmpty(Context.Request.Path) ? "~/" : $"~{Context.Request.Path.Value}";
+}
+
+    <form id="switchTheme" asp-controller="Home" 
+          asp-action="SwitchTheme" asp-route-returnUrl="@returnUrl" 
+          method="post">
+        <button class="btn fs-5" type="submit">
+            <i class="bi @(requestTheme == "light" ? "bi-sun" : "bi-moon")"></i>
+        </button>
+    </form>

@@ -1,0 +1,39 @@
+$primary: #0bb7bd;
+$body-bg: #f8fafc;
+$headings-font-weight: 900;
+$display-font-weight: 600;
+$enable-shadows: true;
+$font-family-base: 'Inter', sans-serif;
+$dropdown-border-width: 0;
+
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+
+$btn-border-radius: $border-radius-pill;
+$btn-border-radius-sm: $border-radius-pill;
+$btn-border-radius-lg: $border-radius-pill;
+
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.form-group {
+    @extend .mb-3;
+}

@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:Exercise6.ViewModels"
+			 xmlns:views="clr-namespace:Exercise6.Views"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Exercise6.Views.MainView"
+             x:DataType="vm:MainViewModel">
+	<TabControl>
+		<TabItem Header="Studenci">
+			<views:StudentsView/>
+		</TabItem>
+		<TabItem Header="Przedmioty">
+			<views:CoursesView/>
+		</TabItem>
+		<TabItem Header="Przypisania studentów">
+			<views:StudentAssignmentsView/>
+		</TabItem>
+	</TabControl>
+</UserControl>

@@ -1,0 +1,84 @@
+﻿@page "/settings"
+@inject ThemeInterop ThemeInterop
+
+<PageTitle>.NET Podcasts - Settings</PageTitle>
+
+@if (isLoading)
+{
+    <Spinner />
+}
+else
+{
+    <div class="containerPage">
+        <div class="titleWrapper">
+            <TitlePage Label="Settings" />
+        </div>
+
+        <div class="contentWrapper">
+            <SubtitlePage Label="Download settings" />
+            <div class="settings-content">
+                <ToggleSwitch Name="autodownload" Label="Autodownload using data" 
+                    Description="Turn on to allow downloads using cellular data if WiFi is unavailable." />
+                    
+                <ToggleSwitch Name="deleteplayed" Label="Delete played episodes"
+                    Description="Turn on to delete episodes after they've been played." />
+
+                <ToggleSwitch Name="showdates" Label="Show podcast dates"
+                    Description="Enables displaying publication dates on the podcasts list." />
+
+                <ToggleSwitch Name="systemtheme" Label=@($"Use System Theme ({systemTheme})") Checked="@isSystemTheme"
+                    Description="Turn on to follow the system theme."
+                    OnChange="@OnUseSystemTheme" />
+
+                <ToggleSwitch Name="darktheme" Label="Dark Theme" Checked="@isDarkMode"
+                    Description="Turn on to use a dark theme (disabled when using system theme)." IsDisabled="@isSystemTheme"
+                    OnChange="@OnDarkThemeChanged" />
+            </div>
+            <p class="settings-developed">Podcasts demo website developed in <a href="https://blazor.net" target="_blank">Blazor</a> and <a href="https://github.com/microsoft/dotnet-podcasts" target="_blank">Open source on GitHub</a></p>
+        </div>
+    </div>
+}
+
+
+@code {
+    private bool isLoading = true;
+    private bool isSystemTheme = false;
+    private bool isDarkMode = false;
+
+    private Theme desiredTheme;
+    private Theme systemTheme;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            desiredTheme = await ThemeInterop.GetThemeAsync();
+            systemTheme = await ThemeInterop.GetSystemThemeAsync();
+            isDarkMode = desiredTheme is Theme.Dark;
+            isLoading = false;
+            ThemeInterop.SystemThemeChanged = async theme =>
+            {
+                systemTheme = theme;
+                if (isSystemTheme)
+                {
+                    await OnDarkThemeChanged(systemTheme is Theme.Dark);
+                }
+                StateHasChanged();
+            };
+            await ThemeInterop.RegisterForSystemThemeChangedAsync();
+            StateHasChanged();
+        }
+    }
+
+    private async Task OnUseSystemTheme(bool value)
+    {
+        isSystemTheme = value;
+        await ThemeInterop.SetThemeAsync(isSystemTheme ? systemTheme : desiredTheme);
+    }
+
+    private async Task OnDarkThemeChanged(bool value)
+    {
+        isDarkMode = value;
+        await ThemeInterop.SetThemeAsync(isDarkMode ? Theme.Dark : Theme.Light);
+    }
+}

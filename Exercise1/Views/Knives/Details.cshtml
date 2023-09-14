@@ -1,0 +1,48 @@
+﻿@model Exercise1.Models.Kitchen.Knife
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Knife</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.BladeLength)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.BladeLength)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Weight)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Weight)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.BladeType)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.BladeType)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.HandleSubstance)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.HandleSubstance)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.HRC)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.HRC)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

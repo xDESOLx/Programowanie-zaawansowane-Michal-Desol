@@ -1,0 +1,53 @@
+﻿@model Exercise2.Models.Garden.Tree
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Tree</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Height" class="control-label"></label>
+                <input asp-for="Height" class="form-control" />
+                <span asp-validation-for="Height" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Type" class="control-label"></label>
+                <input asp-for="Type" class="form-control" />
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PlantingDate" class="control-label"></label>
+                <input asp-for="PlantingDate" class="form-control" />
+                <span asp-validation-for="PlantingDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TrunkDiameter" class="control-label"></label>
+                <input asp-for="TrunkDiameter" class="form-control" />
+                <span asp-validation-for="TrunkDiameter" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LeafColor" class="control-label"></label>
+                <input asp-for="LeafColor" class="form-control" />
+                <span asp-validation-for="LeafColor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

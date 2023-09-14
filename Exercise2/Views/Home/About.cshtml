@@ -1,0 +1,23 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization;
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["O mnie"];
+}
+
+<div class="text-center mb-5">
+    <img src="~/img/avatar.jpg" width="200" height="200" class="img-fluid rounded-circle mx-auto d-block mb-3" />
+    <div class="hstack gap-3 justify-content-center fs-3">
+        <a href="https://github.com/xDESOLx">
+            <i class="bi bi-github"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/michaldesol/">
+            <i class="bi bi-linkedin"></i>
+        </a>
+    </div>
+    <h1>@ViewData["Title"]</h1>
+</div>
+<p>
+    @Localizer["Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet blandit turpis, non vulputate dolor. Donec eu mi vitae libero ornare vehicula. Duis porta quam ut magna ultrices, pharetra varius nibh tristique. Mauris et dolor suscipit, pretium leo bibendum, finibus nulla. Mauris mattis eu odio non eleifend. Proin tincidunt neque diam, a mattis ligula facilisis et. Fusce vel diam in ipsum feugiat cursus."]
+</p>
+
